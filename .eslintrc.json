@@ -2,6 +2,8 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
     "object-curly-spacing": ["error", "always"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "object-shorthand": ["error", "always"]
   }
 }
