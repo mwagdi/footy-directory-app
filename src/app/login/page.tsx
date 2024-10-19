@@ -11,7 +11,7 @@ const Login: React.FC = () => {
         password: '',
     });
 
-    const [login, { data,loading,error }] = useMutation(LOGIN_MUTATION, {
+    const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
         update(cache, { data: { login } }) {
             console.log('update', login);
             cache.writeQuery({
@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await login({ variables: { input } });
-        console.log({ data,loading,error });
+        console.log({ data, loading, error });
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
