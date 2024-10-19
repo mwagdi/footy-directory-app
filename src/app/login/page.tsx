@@ -1,21 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
-
-const LOGIN_MUTATION = gql`
-    mutation LoginMutation($input: LoginInput!) {
-        login(input: $input) {
-            token
-            user {
-                id
-                email
-                first_name
-                last_name
-            }
-        }
-    }
-`;
+import { useMutation } from '@apollo/client';
+import Link from 'next/link';
+import { LOGIN_MUTATION, LOGIN_QUERY } from '../../queries';
 
 const Login: React.FC = () => {
     const [input, setInput] = useState({
@@ -23,7 +11,15 @@ const Login: React.FC = () => {
         password: '',
     });
 
-    const [login, { data,loading,error }] = useMutation(LOGIN_MUTATION);
+    const [login, { data,loading,error }] = useMutation(LOGIN_MUTATION, {
+        update(cache, { data: { login } }) {
+            console.log('update', login);
+            cache.writeQuery({
+                query: LOGIN_QUERY,
+                data: { login },
+            });
+        }
+    });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -40,6 +36,7 @@ const Login: React.FC = () => {
 
     return (
         <div>
+            <Link href="/example">Example</Link>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <input value={input.email} type="email" placeholder="Email" onChange={handleChange} />
