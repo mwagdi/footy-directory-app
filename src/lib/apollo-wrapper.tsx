@@ -1,5 +1,4 @@
 'use client';
-// ^ this file needs the "use client" pragma
 
 import { HttpLink } from '@apollo/client';
 import {
@@ -7,9 +6,21 @@ import {
     ApolloClient,
     InMemoryCache,
 } from '@apollo/experimental-nextjs-app-support';
+import { persistCache } from 'apollo3-cache-persist';
+
+const cache = new InMemoryCache();
+
+(async () => {
+    if(window) {
+        await persistCache({
+            cache,
+            storage: window.localStorage,
+        });
+    }
+})();
 
 // have a function to create a client for you
-function makeClient() {
+const makeClient = () => {
     console.log('makeClient', process.env.API_URL);
     const httpLink = new HttpLink({
         // this needs to be an absolute url, as relative urls cannot be used in SSR
@@ -23,13 +34,15 @@ function makeClient() {
         // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
     });
 
+
+
     // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
     return new ApolloClient({
         // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
-        cache: new InMemoryCache(),
+        cache,
         link: httpLink,
     });
-}
+};
 
 // you need to create a component to wrap your app in
 export function ApolloWrapper({ children }: React.PropsWithChildren) {
