@@ -1,11 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
+import { useApolloClient, useMutation } from '@apollo/client';
 import Link from 'next/link';
 import { LOGIN_MUTATION, LOGIN_QUERY } from '../../queries';
+import { redirect } from 'next/navigation';
 
 const Login: React.FC = () => {
+    // const router = useRouter();
+    const client = useApolloClient();
+
+    const cached = client.readQuery({ query: LOGIN_QUERY  });
+
     const [input, setInput] = useState({
         email: '',
         password: '',
@@ -20,6 +26,12 @@ const Login: React.FC = () => {
             });
         }
     });
+
+    useEffect(() => {
+        if (cached?.login) {
+            redirect('/dashboard');
+        }
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
