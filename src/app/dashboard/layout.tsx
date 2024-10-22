@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { useApolloClient } from '@apollo/client';
 import { LOGIN_QUERY } from 'src/queries';
 import { redirect } from 'next/navigation';
-import { SidebarProvider } from 'components/ui/sidebar';
+import { SidebarProvider, SidebarTrigger } from 'components/ui/sidebar';
 import AppSidebar from 'components/AppSidebar';
 
 const DashboardLayout: React.FC<{children: ReactNode}> = ({ children }) => {
@@ -23,6 +23,7 @@ const DashboardLayout: React.FC<{children: ReactNode}> = ({ children }) => {
         <SidebarProvider>
             <AppSidebar />
             <main>
+                <SidebarTrigger />
                 <h1>Dashboard Layout</h1>
                 {children}
             </main>
