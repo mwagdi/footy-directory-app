@@ -7,7 +7,6 @@ import { LOGIN_MUTATION, LOGIN_QUERY } from '../../queries';
 import { redirect } from 'next/navigation';
 
 const Login: React.FC = () => {
-    // const router = useRouter();
     const client = useApolloClient();
 
     const cached = client.readQuery({ query: LOGIN_QUERY  });
@@ -31,7 +30,7 @@ const Login: React.FC = () => {
         if (cached?.login) {
             redirect('/dashboard');
         }
-    }, []);
+    }, [cached]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

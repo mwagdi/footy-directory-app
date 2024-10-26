@@ -24,7 +24,6 @@ const DashboardLayout: React.FC<{children: ReactNode}> = ({ children }) => {
             <AppSidebar />
             <main>
                 <SidebarTrigger />
-                <h1>Dashboard Layout</h1>
                 {children}
             </main>
         </SidebarProvider>

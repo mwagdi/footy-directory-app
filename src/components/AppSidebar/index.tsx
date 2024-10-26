@@ -7,6 +7,7 @@ import {
     SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem
 } from 'components/ui/sidebar';
 import { Earth, Home, PersonStanding, Shield } from 'lucide-react';
+import { FC } from 'react';
 
 const menuItems = [
     {
@@ -31,7 +32,7 @@ const menuItems = [
     }
 ];
 
-const AppSidebar: React.FC = () => {
+const AppSidebar: FC = () => {
     return(
         <Sidebar>
             <SidebarHeader />

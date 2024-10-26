@@ -11,7 +11,7 @@ import { persistCache } from 'apollo3-cache-persist';
 const cache = new InMemoryCache();
 
 (async () => {
-    if(window) {
+    if (typeof window !== 'undefined') {
         await persistCache({
             cache,
             storage: window.localStorage,
@@ -21,7 +21,6 @@ const cache = new InMemoryCache();
 
 // have a function to create a client for you
 const makeClient = () => {
-    console.log('makeClient', process.env.API_URL);
     const httpLink = new HttpLink({
         // this needs to be an absolute url, as relative urls cannot be used in SSR
         uri: 'https://footy-directory-59316565a7b1.herokuapp.com/',
