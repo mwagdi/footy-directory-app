@@ -1,16 +1,6 @@
 import { getClient } from 'lib/client';
-import { gql } from '@apollo/client';
 import { Query } from '../generated/graphql';
-
-const NATIONS_QUERY = gql`
-  query Query {
-    nations {
-      id
-      name
-      population
-    }
-  }
-`;
+import { NATIONS_QUERY } from 'src/queries';
 
 const Home = async () => {
   const client = getClient();

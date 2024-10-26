@@ -1,17 +1,39 @@
 'use client';
 
-import React from 'react';
+import { FC, useEffect } from 'react';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'components/ui/form';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { CREATE_NATION_MUTATION, LOGIN_QUERY } from 'src/queries';
 
-const CreateNation: React.FC = () => {
-    const form = useForm();
+interface FormValues {
+    name: string;
+    population: string;
+}
+
+const CreateNation: FC = () => {
+    const client = useApolloClient();
+    const form = useForm<FormValues>();
+    const query = client.readQuery({ query: LOGIN_QUERY  });
+
+    const [createNation, { data, error }] = useMutation(CREATE_NATION_MUTATION);
     
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<FormValues> = async ({ name, population }) => {
+        await createNation({
+            variables: { input: { name, population: parseInt(population) } },
+            context: {
+                headers: {
+                    Authorization: `Bearer ${query.login.token}`,
+                }
+            }
+        });
     };
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
 
     return (
         <div>
