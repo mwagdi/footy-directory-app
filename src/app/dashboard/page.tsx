@@ -1,8 +1,8 @@
 'use client';
 
 import { useApolloClient } from '@apollo/client';
-import { LOGIN_QUERY } from '../../queries';
 import React from 'react';
+import { LOGIN_QUERY } from 'src/queries';
 
 const Dashboard: React.FC = () => {
     const client = useApolloClient();

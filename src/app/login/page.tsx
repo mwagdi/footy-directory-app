@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 import Link from 'next/link';
-import { LOGIN_MUTATION, LOGIN_QUERY } from '../../queries';
 import { redirect } from 'next/navigation';
+import { LOGIN_MUTATION, LOGIN_QUERY } from 'src/queries';
 
 const Login: React.FC = () => {
     const client = useApolloClient();
@@ -16,9 +16,8 @@ const Login: React.FC = () => {
         password: '',
     });
 
-    const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
+    const [login] = useMutation(LOGIN_MUTATION, {
         update(cache, { data: { login } }) {
-            console.log('update', login);
             cache.writeQuery({
                 query: LOGIN_QUERY,
                 data: { login },
@@ -35,7 +34,6 @@ const Login: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await login({ variables: { input } });
-        console.log({ data, loading, error });
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
