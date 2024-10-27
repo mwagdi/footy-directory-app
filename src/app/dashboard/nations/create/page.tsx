@@ -1,12 +1,13 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'components/ui/form';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { CREATE_NATION_MUTATION, LOGIN_QUERY } from 'src/queries';
+import { toast } from 'sonner';
 
 interface FormValues {
     name: string;
@@ -18,7 +19,14 @@ const CreateNation: FC = () => {
     const form = useForm<FormValues>();
     const query = client.readQuery({ query: LOGIN_QUERY  });
 
-    const [createNation, { data, error }] = useMutation(CREATE_NATION_MUTATION);
+    const [createNation] = useMutation(CREATE_NATION_MUTATION, {
+        onCompleted: (data) => {
+            toast.success('Nation created', { description: data.createNation.name });
+        },
+        onError: (error) => {
+            toast.error('Error creating nation', { description: error.message });
+        }
+    });
     
     const onSubmit: SubmitHandler<FormValues> = async ({ name, population }) => {
         await createNation({
@@ -30,10 +38,6 @@ const CreateNation: FC = () => {
             }
         });
     };
-
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     return (
         <div>
