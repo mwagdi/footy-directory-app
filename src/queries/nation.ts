@@ -5,7 +5,6 @@ export const NATIONS_QUERY = gql`
         nations {
             id
             name
-            population
         }
     }
 `;

@@ -22,6 +22,7 @@ const CreateNation: FC = () => {
     const [createNation] = useMutation(CREATE_NATION_MUTATION, {
         onCompleted: (data) => {
             toast.success('Nation created', { description: data.createNation.name });
+            form.reset();
         },
         onError: (error) => {
             toast.error('Error creating nation', { description: error.message });
