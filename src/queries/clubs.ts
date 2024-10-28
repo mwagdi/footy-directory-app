@@ -5,6 +5,20 @@ export const CREATE_CLUB_MUTATION = gql`
         createClub(input: $input) {
             id
             name
+            nation_id
+        }
+    }
+`;
+
+export const CLUBS_QUERY = gql`
+    query Query {
+        clubs {
+            id
+            name
+            nation {
+                id
+                name
+            }
         }
     }
 `;
