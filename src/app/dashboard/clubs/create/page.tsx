@@ -32,7 +32,6 @@ const CreateClub: FC = () => {
     });
     const { data } = useQuery(NATIONS_QUERY);
 
-
     const onSubmit: SubmitHandler<FormValues> = async ({ name, nation_id }) => {
         console.log({ name, nation_id });
         await createClub({
@@ -62,7 +61,7 @@ const CreateClub: FC = () => {
                     <FormField control={form.control} name="nation_id" render={({ field }) => (
                         <FormItem>
                             <FormLabel>Nation</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value || ''}>
                                 <FormControl>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select nation" />
