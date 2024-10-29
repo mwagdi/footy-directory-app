@@ -33,7 +33,6 @@ const CreateClub: FC = () => {
     const { data } = useQuery(NATIONS_QUERY);
 
     const onSubmit: SubmitHandler<FormValues> = async ({ name, nation_id }) => {
-        console.log({ name, nation_id });
         await createClub({
             variables: { input: { name, nation_id: parseInt(nation_id) } },
             context: {

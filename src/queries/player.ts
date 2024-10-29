@@ -5,7 +5,10 @@ export const CREATE_PLAYER_MUTATION = gql`
         createPlayer(input: $input) {
             id
             name
-            nation_id
+            nationalities {
+                id
+                name
+            }
             club_id
         }
     }

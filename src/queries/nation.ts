@@ -14,10 +14,10 @@ export const NATIONS_WITH_CLUBS_QUERY = gql`
         nations {
             id
             name
-            clubs {
-                id
-                name
-            }
+        }
+        clubs {
+            id
+            name
         }
     }
 `;
