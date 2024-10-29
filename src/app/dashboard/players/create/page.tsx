@@ -133,7 +133,8 @@ const CreatePlayer: FC = () => {
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        {data?.nations.map((nation: Pick<Nation, 'id' | 'name'>) => <SelectItem value={nation.id} key={`nation_${nation.id}`}>{nation.name}</SelectItem>)}
+                                        {data?.nations.map((nation: Pick<Nation, 'id' | 'name'>) =>
+                                            <SelectItem value={nation.id} key={`nation_${nation.id}`}>{nation.name}</SelectItem>)}
                                     </SelectContent>
                                 </Select>
                             ))}
@@ -154,7 +155,8 @@ const CreatePlayer: FC = () => {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    {data?.clubs.map((club: Pick<Club, 'id' | 'name'>) => <SelectItem value={club.id} key={`club_${club.id}`}>{club.name}</SelectItem>)}
+                                    {data?.clubs.map((club: Pick<Club, 'id' | 'name'>) =>
+                                        <SelectItem value={club.id} key={`club_${club.id}`}>{club.name}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <FormMessage />

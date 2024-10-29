@@ -23,7 +23,7 @@ const DashboardLayout: React.FC<{children: ReactNode}> = ({ children }) => {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main>
+            <main className="p-5">
                 <SidebarTrigger />
                 {children}
             </main>

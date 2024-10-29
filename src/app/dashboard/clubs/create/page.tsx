@@ -67,7 +67,8 @@ const CreateClub: FC = () => {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    {data?.nations.map((nation: Pick<Nation, 'id' | 'name'>) => <SelectItem value={nation.id} key={nation.id}>{nation.name}</SelectItem>)}
+                                    {data?.nations.map((nation: Pick<Nation, 'id' | 'name'>) =>
+                                        <SelectItem value={nation.id} key={nation.id}>{nation.name}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <FormMessage />
