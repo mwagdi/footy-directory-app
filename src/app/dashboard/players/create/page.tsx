@@ -63,7 +63,7 @@ const CreatePlayer: FC = () => {
         <div>
             <h2>Create Player</h2>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
                     <FormField control={form.control} name="name" render={() => (
                         <FormItem>
                             <FormLabel>Name</FormLabel>
@@ -83,7 +83,7 @@ const CreatePlayer: FC = () => {
                         </FormItem>
                     )} />
                     <FormField control={form.control} name="birthdate" render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex items-center">
                             <FormLabel>Birthdate</FormLabel>
                             <Popover>
                                 <PopoverTrigger asChild>
@@ -91,7 +91,7 @@ const CreatePlayer: FC = () => {
                                         <Button
                                             variant={'outline'}
                                             className={cn(
-                                                'w-[240px] pl-3 text-left font-normal',
+                                                'w-[240px] pl-3 text-left font-normal mt-0',
                                                 !field.value && 'text-muted-foreground'
                                             )}
                                         >
@@ -138,7 +138,7 @@ const CreatePlayer: FC = () => {
                                     </SelectContent>
                                 </Select>
                             ))}
-                            <Button onClick={(event) => {
+                            <Button className="block" onClick={(event) => {
                                 event.preventDefault();
                                 form.setValue('nationality_ids', field.value ? [...field.value, ''] : ['']);
                             }}>Add Nation</Button>

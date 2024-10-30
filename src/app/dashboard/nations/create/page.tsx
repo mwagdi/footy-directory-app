@@ -44,7 +44,7 @@ const CreateNation: FC = () => {
         <div>
             <h2>Create Nation</h2>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
                     <FormField control={form.control} name="name" render={() => (
                         <FormItem>
                             <FormLabel>Name</FormLabel>
