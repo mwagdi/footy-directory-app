@@ -1,15 +1,29 @@
 'use client';
 
 import React from 'react';
-import { useApolloClient } from '@apollo/client';
+import { gql, useApolloClient, useQuery } from '@apollo/client';
 
 import { LOGIN_QUERY } from 'src/queries';
 
+const EXAMPLE_QUERY = gql`
+    query ExampleQuery {
+        clubs {
+            id
+            name
+        }
+        players {
+            id
+            name
+        }
+    }
+`;
+
 const Example: React.FC = () => {
     const client = useApolloClient();
+    const { data } = useQuery(EXAMPLE_QUERY);
 
-    const x = client.readQuery({ query: LOGIN_QUERY  });
-    console.log(x);
+    const loginQuery = client.readQuery({ query: LOGIN_QUERY  });
+    console.log({ loginQuery, data });
 
     return (
         <div>
