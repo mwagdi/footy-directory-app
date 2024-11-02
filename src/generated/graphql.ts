@@ -118,6 +118,19 @@ export type Query = {
   clubs: Array<Maybe<Club>>;
   nations: Array<Maybe<Nation>>;
   players: Array<Maybe<Player>>;
+  search: Search;
+};
+
+
+export type QuerySearchArgs = {
+  input: Scalars['String']['input'];
+};
+
+export type Search = {
+  __typename?: 'Search';
+  clubs: Array<Maybe<Club>>;
+  nations: Array<Maybe<Nation>>;
+  players: Array<Maybe<Player>>;
 };
 
 export type SignupInput = {
