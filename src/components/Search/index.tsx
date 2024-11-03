@@ -1,22 +1,16 @@
-'use client';
-
-import { Input } from 'components/ui/input';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { SEARCH_QUERY } from 'queries/search';
+import { Input } from 'components/ui/input';
 
 const Search = () => {
     const [search, setSearch] = useState('');
     const { data } = useQuery(SEARCH_QUERY, {
-        variables: { input: search }
+        variables: { input: search },
+        skip: !search
     });
 
-    useEffect(() => {
-        console.log({ data });
-    }, [data]);
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
         setSearch(event.target.value);
     };
 
