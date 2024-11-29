@@ -9,7 +9,7 @@ import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { CREATE_CLUB_MUTATION, LOGIN_QUERY, NATIONS_QUERY } from 'src/queries';
 import { toast } from 'sonner';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select';
-import { Nation } from 'src/generated/graphql';
+import { CreateClubInput, Nation } from 'src/generated/graphql';
 
 interface FormValues {
     name: string;
@@ -35,7 +35,8 @@ const CreateClub: FC = () => {
     const { data } = useQuery(NATIONS_QUERY);
 
     const onSubmit: SubmitHandler<FormValues> = async ({ name, nation_id, logo }) => {
-        const input = {
+        console.log({ logo, file });
+        const input: CreateClubInput = {
             name,
             nation_id: parseInt(nation_id),
         };
@@ -92,7 +93,7 @@ const CreateClub: FC = () => {
                             <FormControl>
                                 <Input type="file" {...form.register('logo')} onChange={(event) => {
                                     if (event.target.files && event.target.files.length > 0) {
-                                        field.onChange(event.target.files.length > 0);
+                                        field.onChange(event);
                                         setFile(event.target.files[0]);
                                     }
                                 }}/>
