@@ -32,7 +32,10 @@ const SearchSection = () => {
                     <div>
                         <h3 className="font-bold text-lg">Clubs</h3>
                         {data.search.clubs.map((club: Club) => (
-                            <p key={`club_${club.id}`}>{club.name}</p>
+                            <div key={`Club_${club.id}`}>
+                                {club.logo && <img src={club.logo} alt={club.name}/>}
+                                <p key={`club_${club.id}`}>{club.name}</p>
+                            </div>
                         ))}
                     </div>
                 )}

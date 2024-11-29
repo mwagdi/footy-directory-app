@@ -10,6 +10,7 @@ export const SEARCH_QUERY = gql`
             clubs {
                 id
                 name
+                logo
             }
             players {
                 id
