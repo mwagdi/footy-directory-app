@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -14,12 +14,14 @@ import { Nation } from 'src/generated/graphql';
 interface FormValues {
     name: string;
     nation_id: string;
+    logo?: File;
 }
 
 const CreateClub: FC = () => {
     const client = useApolloClient();
     const form = useForm<FormValues>();
     const query = client.readQuery({ query: LOGIN_QUERY  });
+    const [file, setFile] = useState<File | null>(null);
 
     const [createClub] = useMutation(CREATE_CLUB_MUTATION, {
         onCompleted: (data) => {
@@ -32,9 +34,17 @@ const CreateClub: FC = () => {
     });
     const { data } = useQuery(NATIONS_QUERY);
 
-    const onSubmit: SubmitHandler<FormValues> = async ({ name, nation_id }) => {
+    const onSubmit: SubmitHandler<FormValues> = async ({ name, nation_id, logo }) => {
+        const input = {
+            name,
+            nation_id: parseInt(nation_id),
+        };
+        if (file) {
+            input.logo = file;
+        }
+
         await createClub({
-            variables: { input: { name, nation_id: parseInt(nation_id) } },
+            variables: { input },
             context: {
                 headers: {
                     Authorization: `Bearer ${query.login.token}`,
@@ -42,6 +52,8 @@ const CreateClub: FC = () => {
             }
         });
     };
+
+    console.log({ form });
 
     return (
         <div>
@@ -74,6 +86,20 @@ const CreateClub: FC = () => {
                             <FormMessage />
                         </FormItem>
                     )} />
+                    <FormField control={form.control} name="logo" render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Logo</FormLabel>
+                            <FormControl>
+                                <Input type="file" {...form.register('logo')} onChange={(event) => {
+                                    if (event.target.files && event.target.files.length > 0) {
+                                        field.onChange(event.target.files.length > 0);
+                                        setFile(event.target.files[0]);
+                                    }
+                                }}/>
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}/>
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>

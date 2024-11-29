@@ -6,6 +6,7 @@ export const CREATE_CLUB_MUTATION = gql`
             id
             name
             nation_id
+            logo
         }
     }
 `;
