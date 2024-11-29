@@ -54,8 +54,6 @@ const CreateClub: FC = () => {
         });
     };
 
-    console.log({ form });
-
     return (
         <div>
             <h2>Create Club</h2>
