@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 interface FormValues {
     name: string;
     population: string;
+    flag?: File;
 }
 
 const CreateNation: FC = () => {
@@ -29,9 +30,9 @@ const CreateNation: FC = () => {
         }
     });
     
-    const onSubmit: SubmitHandler<FormValues> = async ({ name, population }) => {
+    const onSubmit: SubmitHandler<FormValues> = async ({ name, population, flag }) => {
         await createNation({
-            variables: { input: { name, population: parseInt(population) } },
+            variables: { input: { name, population: parseInt(population), flag } },
             context: {
                 headers: {
                     Authorization: `Bearer ${query.login.token}`,
@@ -59,6 +60,21 @@ const CreateNation: FC = () => {
                             <FormLabel>Population</FormLabel>
                             <FormControl>
                                 <Input {...form.register('population')} type="number" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )} />
+                    <FormField control={form.control} name="flag" render={({ field: { value, onChange, ...field } }) => (
+                        <FormItem>
+                            <FormLabel>Flag</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="file"
+                                    {...field}
+                                    value={value?.fileName}
+                                    onChange={(event) => {
+                                        onChange(event.target.files && event.target.files[0]);
+                                    }} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
