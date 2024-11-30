@@ -28,6 +28,7 @@ export const CREATE_NATION_MUTATION = gql`
             id
             name
             population
+            flag
         }
     }
 `;
